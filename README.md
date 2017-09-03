@@ -1,3 +1,5 @@
 # TwitterBot2
 
-This bot keeps counting up via tweets. That's it.
+Collection of Twitter bots that do various dank things.
+
+More soon.
