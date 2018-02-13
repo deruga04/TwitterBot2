@@ -3,12 +3,13 @@ var client = new Twit(require("./config"));
 var fs = require("fs");
 
 var userID;
-var userName = "Rostorne";
+var userName;
 var specChar = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
 var tweetThis = "";
 
 function init()
 {
+	userName = process.argv[2];
 	client.get("users/show", {screen_name: userName}, function(error, user, resp){
 		userID = user.id;
 		getTweet();
@@ -39,12 +40,14 @@ function getTweet()
 
 function mockify(string) 
 {
-	var result = "";
+	var result;
+	var random;
 	for (var i = 0; i < string.length; i++)
 	{
+		random = Math.random();
 		if (!string[i].match(specChar))
 		{
-			if (randomtf())
+			if (random < 0.5)
 			{
 				result += string[i].toString().toUpperCase();
 			}
@@ -61,22 +64,15 @@ function mockify(string)
 	return result;
 }
 
-function randomtf()
-{
-	return Math.random() > 0.5 ? true : false;
+function usage(){
+	console.log("Usage: node mock-bot.js [username]")
+	console.log("username - display name of the user you want to listen to")
+	console.log("Program is not exiting...")
 }
 
-console.log("The bot is starting.");
+if (process.argv.length != 3){
+	usage();
+	process.exit()
+}
 
 init();
-
-function aaa()
-{
-	client.post("statuses/update", {status: tweetThis + " @" + userName, in_reply_to_status_id: tweet.id_str})
-			.then(function(){
-				console.log("@" + userName + " " + tweetThis);
-			})
-			.catch(function(){
-				throw error;
-			})
-}
