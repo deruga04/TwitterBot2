@@ -1,4 +1,4 @@
-# TwitterBot2
+# Twitter Bots
 
 Collection of Twitter bots that do various dank things.
 
